@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, Select, DatePicker } from "antd";
 
 const { Option } = Select;
@@ -9,18 +9,17 @@ const Filter = ({ handleFilter }) => {
   const [categories, setCategories] = useState([]);
   const [people, setPeople] = useState([]);
 
-  useEffect(() => {
-    Promise.all([fetch("data/items.json"), fetch("data/people.json")])
-      .then((responses) =>
-        Promise.all(responses.map((response) => response.json()))
-      )
-      .then((data) => {
-        const [items, people] = data;
-        setCategories(items.categories);
-        setPeople(people);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+  Promise.all([
+    fetch('/data/items.json'),
+    fetch('/data/people.json')
+  ])
+    .then(responses => Promise.all(responses.map(response => response.json())))
+    .then(data => {
+      const [items, people] = data;
+      setCategories(items.categories);
+      setPeople(people);
+    })
+    .catch(error => console.error(error));
 
   const handleCategoryChange = (value) => {
     setFilter({ ...filter, category: value });
