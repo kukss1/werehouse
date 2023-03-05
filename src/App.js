@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import './App.css';
 import ProductList from './components/ProductList';
+import './App.css';
 
 const { Header, Content } = Layout;
 
@@ -11,10 +11,8 @@ function App() {
       <Header>
         <div className="logo" />
       </Header>
-      <Content style={{ padding: '0 50px' }}>
-        <div className="site-layout-content">
-          <ProductList />
-        </div>
+      <Content style={{ padding: '50px 50px' }}>
+        <ProductList />
       </Content>
     </Layout>
   );
