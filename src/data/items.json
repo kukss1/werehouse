@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "name": "Монитор Dell",
+      "category": "Компьютеры",
+      "quantity": 10,
+      "price": 10000,
+      "date": "2022-02-01"
+    },
+    {
+      "id": 2,
+      "name": "Ноутбук Lenovo",
+      "category": "Компьютеры",
+      "quantity": 5,
+      "price": 25000,
+      "date": "2022-02-02"
+    },
+    {
+      "id": 3,
+      "name": "Принтер HP",
+      "category": "Оргтехника",
+      "quantity": 3,
+      "price": 5000,
+      "date": "2022-02-03"
+    }
+  ]
+  
