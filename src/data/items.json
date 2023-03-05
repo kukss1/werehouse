@@ -1,0 +1,26 @@
+{
+    "items": [
+      {
+        "id": 1,
+        "name": "Футболка",
+        "category": "Одежда",
+        "quantity": 10,
+        "reserved": 0
+      },
+      {
+        "id": 2,
+        "name": "Телефон",
+        "category": "Электроника",
+        "quantity": 5,
+        "reserved": 2
+      },
+      {
+        "id": 3,
+        "name": "Книга",
+        "category": "Литература",
+        "quantity": 20,
+        "reserved": 5
+      }
+    ]
+  }
+  
