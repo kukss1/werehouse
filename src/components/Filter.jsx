@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Select, DatePicker } from "antd";
 
 const { Option } = Select;
@@ -9,39 +9,56 @@ const Filter = ({ handleFilter }) => {
   const [categories, setCategories] = useState([]);
   const [people, setPeople] = useState([]);
 
-  Promise.all([
-    fetch('/data/items.json'),
-    fetch('/data/people.json')
-  ])
-    .then(responses => Promise.all(responses.map(response => response.json())))
-    .then(data => {
-      const [items, people] = data;
-      setCategories(items.categories);
-      setPeople(people);
-    })
-    .catch(error => console.error(error));
+
+
+  useEffect(() => {
+    fetch("/data/items.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data.categories)) {
+          setCategories(data.categories);
+        }
+      })
+      .catch((error) => console.error(error));
+
+      fetch("/data/items.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data.people)) {
+          setPeople(data.people);
+        }
+      })
+      .catch((error) => console.error(error));
+
+      
+  }, []);
+
 
   const handleCategoryChange = (value) => {
     setFilter({ ...filter, category: value });
+    form.setFieldsValue({ category: value });
   };
-
+  
   const handlePersonChange = (value) => {
     setFilter({ ...filter, person: value });
+    form.setFieldsValue({ person: value });
   };
-
+  
   const handleDateChange = (value) => {
     setFilter({ ...filter, date: value.format("YYYY-MM-DD") });
+    form.setFieldsValue({ date: value });
   };
+  
 
   const handleSubmit = () => {
     handleFilter(filter);
   };
-
+  
   return (
     <Form form={form} layout="inline">
       <Form.Item label="Категория" name="category">
         <Select onChange={handleCategoryChange} placeholder="Выберите категорию">
-          {categories.map((category) => (
+          {categories && categories.map((category) => (
             <Option key={category} value={category}>
               {category}
             </Option>
@@ -50,7 +67,7 @@ const Filter = ({ handleFilter }) => {
       </Form.Item>
       <Form.Item label="Человек" name="person">
         <Select onChange={handlePersonChange} placeholder="Выберите человека">
-          {people.map((person) => (
+          {people.length > 0 && people.map((person) => (
             <Option key={person} value={person}>
               {person}
             </Option>
