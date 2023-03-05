@@ -1,26 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Card, Table } from 'antd';
-import { fetchProducts } from '../redux/itemsSlice';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Row, Col } from 'antd';
 
-const { Column } = Table;
+import ProductCard from './ProductCard';
 
 const ProductList = () => {
-  const dispatch = useDispatch();
-  const productList = useSelector(state => state.items.itemsList);
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  const products = useSelector((state) => state.items.itemsList);
 
   return (
-    <Card>
-      <Table dataSource={productList} rowKey="id">
-        <Column title="Name" dataIndex="name" key="name" />
-        <Column title="Category" dataIndex="category" key="category" />
-        <Column title="Quantity" dataIndex="quantity" key="quantity" />
-      </Table>
-    </Card>
+    <Row gutter={[16, 16]}>
+      {products.map((product) => (
+        <Col span={8} key={product.id}>
+          <ProductCard product={product} />
+        </Col>
+      ))}
+    </Row>
   );
 };
 

@@ -1,38 +1,43 @@
 import { createSlice } from '@reduxjs/toolkit';
-import productsData from '../data/products.json';
 
-const itemsSlice = createSlice({
-  name: 'items',
-  initialState: {
-    list: productsData,
-    selectedItem: null,
+import itemsData from '../data/items.json';
+
+const initialState = {
+  itemsList: itemsData,
+  selectedItem: null,
+  filters: {
+    category: '',
+    person: '',
+    date: ''
   },
+  filteredItems: []
+};
+
+export const itemsSlice = createSlice({
+  name: 'items',
+  initialState,
   reducers: {
+    addItem: (state, action) => {
+      state.itemsList.push(action.payload);
+    },
+    removeItem: (state, action) => {
+      state.itemsList = state.itemsList.filter((item) => item.id !== action.payload);
+    },
     setItemsList: (state, action) => {
-      state.list = action.payload;
+      state.itemsList = action.payload;
     },
     setSelectedItem: (state, action) => {
       state.selectedItem = action.payload;
     },
-    addItem: (state, action) => {
-      const newItem = action.payload;
-      state.list.push(newItem);
+    setFilters: (state, action) => {
+      state.filters = action.payload;
     },
-    removeItem: (state, action) => {
-      const itemId = action.payload;
-      state.list = state.list.filter((item) => item.id !== itemId);
-    },
-  },
+    setFilteredItems: (state, action) => {
+      state.filteredItems = action.payload;
+    }
+  }
 });
 
-export const { setItemsList, setSelectedItem, addItem, removeItem } =
-  itemsSlice.actions;
-
-export const fetchProducts = () => {
-  return (dispatch) => {
-    const products = productsData;
-    dispatch(setItemsList(products));
-  };
-};
+export const { setItemsList, setSelectedItem, addItem, removeItem, setFilters, setFilteredItems } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
