@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Select, DatePicker } from "antd";
-import { items  } from "../data/items.json";
-import {people} from '../data/people.json'
+import { categories, people } from "../data/items.json";
+
 const { Option } = Select;
 
 const Filter = ({ handleFilter }) => {
@@ -28,7 +28,7 @@ const Filter = ({ handleFilter }) => {
     <Form form={form} layout="inline">
       <Form.Item label="Категория" name="category">
         <Select onChange={handleCategoryChange} placeholder="Выберите категорию">
-          {items.categories.map((category) => (
+          {categories.map((category) => (
             <Option key={category} value={category}>
               {category}
             </Option>
